@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bubble App</title>
+  <style>
+    
+    .blue {
+      margin-left: 50px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: blue;
+    }
+    
+    .border {
+      border: 5px solid black;
+    }
+    .right {
+      margin-top: -92px;
+      display: block;
+      float: right;
+      padding-top: -100px;
+      margin-right: 50px;
+    }
+    .btn {
+      float: right;
+    }
+    .hit {
+      background-color: yellow;
+    }
+    .reset{
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Bubble App</h1>
+  <div class="border">
+    <div>
+     
+      <br>
+      <div> <h1 class="blue"></h1><a href="#"><h1 class="right">&#x2190;</h1></a></div>
+  <br>
+  <div class="reset">
+    <button type="reset" onclick="document.location.reload()">RESET</button>
+  </div>
+
+  <script>
+    var rightElements = document.getElementsByClassName("right");
+    var circles = document.querySelectorAll(".yellow, .blue, .red, .green");
+    var originalPositions = []; 
+
+    circles.forEach(function(circle) {
+      originalPositions.push(circle.getBoundingClientRect());
+    });
+
+    
+    for (var i = 0; i < rightElements.length; i++) {
+      rightElements[i].onclick = function() {
+        this.style.float = "left";
+        this.style.marginLeft = "150px";
+        colorchange(this);
+      };
+    }
+
+    function colorchange(clickedCircle) {
+      circles.forEach(function(circle) {
+        if (circle.parentElement.querySelector(".right") === clickedCircle) {
+          circle.classList.toggle("hit"); 
+        } else {
+          circle.classList.remove("hit");
+        }
+      });
+    }
+
+     var resetButton = document.getElementById("resetButton");
+  resetButton.addEventListener("click", resetProgram);
+  function resetProgram() {
+    circles.forEach(function (circle, index) {
+      var originalPosition = originalPositions[index];
+      circle.style.transform = "translate(0, 0)";
+      circle.style.float = "none"; 
+      circle.classList.remove("hit");
+      circle.parentElement.querySelector(".right").style.marginLeft = "50px";
+    });
+  }
+  </script>
+</body>
+</html>
